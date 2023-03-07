@@ -1,0 +1,29 @@
+{% load static %}
+<! DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Registration</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+   <!-- Font Awesome Cdn Link -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+</head>
+<body>
+  <div class="wrapper">
+    <h1>Registration</h1>
+    <p>USER!</p>
+
+<form action="register" method="post">
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="Enter username"><br>
+    <input type="password" name="password" placeholder="Enter password"><br>
+    <input type="password" name="password1" placeholder="Confirm password"><br>
+    <button type="submit" name="submit">Submit</button>
+</form>
+{% for msg in messages %}
+<i>{{msg}}</i>
+{% endfor %}
+
+  </div>
+</body>
+</html>

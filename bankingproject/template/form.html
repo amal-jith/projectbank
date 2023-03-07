@@ -1,0 +1,102 @@
+{% load static %}
+<! doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   <!-- Font Awesome Cdn Link -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>User Form</title>
+</head>
+<body>
+
+
+
+<div class="wrapperform" style="width:40%">
+    <h3>User Details</h3>
+    <form action="msg" method="post">
+      {% csrf_token %}
+
+      <label>Name:</label><br>
+            <input type="text" name="name" placeholder="Enter your name"><br>
+
+      <label>DOB:</label><br>
+            <input type="date" name="date" placeholder="Date of Birth"><br>
+
+      <label>Age:</label><br>
+            <input type="number" name="age" placeholder="Enter age"><br>
+
+      <label>Gender:</label><br>
+            <label>Male</label><br><input type="radio" name="gender" value="Male"><br>
+            <label>Female</label><br><input type="radio" name="gender" value="Female"><br>
+
+      <label>Phone Number:</label><br>
+             <input type="number" name="phoneno" placeholder="Enter phone number"><br>
+
+      <label>Mail ID:</label><br>
+                <input type="email" name="email" placeholder="Enter your email"><br>
+
+      <label>Address:</label><br>
+                <input type="text" name="address" placeholder="Enter your address"><br>
+
+     <label for="country">District:</label>
+        <select class="form-select" aria-label="Default select example" id="country" onchange="countryfield()">
+            <option selected>Choose District</option>
+                {% for i in country %}
+             <option value="{{i.id}}" {% if request.GET.country == i.id|lower %}selected{% endif %}>{{i.name}}</option>
+                 {% endfor %}
+         </select>
+        <br><br>
+    <label for="state">Branch:</label>
+        <select class="form-select" aria-label="Default select example" id="state" onchange="statefield()">
+         <option selected>Choose Branch</option>
+             {% for i in state %}
+                 <option value="{{i.id}}" {% if request.GET.state == i.id|lower %}selected{% endif %}>{{i.name}}</option>
+             {% endfor %}
+         </select>
+    <br><br>
+
+    <label for="account">Account Type:</label>
+      <select id="account" name="account"><br>
+          <option value="current">Current Account</option>
+          <option value="savings">Savings Account</option>
+      </select><br><br>
+
+      <label>Materials provide:</label><br>
+        <label for="credit"> Credit Card</label><br>
+        <input type="checkbox" id="credit" name="credit" value="credit"><br>
+        <label for="debit"> Debit Card</label>
+        <input type="checkbox" id="debit" name="debit" value="debit"><br>
+        <label for="cheque"> Cheque Book</label>
+        <input type="checkbox" id="cheque" name="cheque" value="cheque"><br>
+        <label for="internet"> Internet Banking</label>
+        <input type="checkbox" id="internet" name="internet" value="internet"><br>
+
+      <a href='msg'><button>SUBMIT</button></a>
+      <a href='/'><button>LOGOUT</button></a>
+
+
+    </form>
+</div>
+
+
+
+
+<script>
+    function countryfield(){
+        countryid = document.getElementById('country').value;
+        window.location = "/?country="+countryid;
+    }
+    function statefield(){
+       stateid = document.getElementById('state').value;
+       window.location = "/?country="+'{{request.GET.country}}'+"&state="+stateid;
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+</html>
